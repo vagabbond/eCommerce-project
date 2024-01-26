@@ -1,33 +1,31 @@
-import { FC, useEffect, useState } from "react";
-import axios from "axios";
+import { FC } from "react";
 import { useLocation, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { Row, Col, Image, ListGroup, Card, Button } from "react-bootstrap";
+import { useGetProductDetailsQuery } from "../redux/slice/productsApiSlice";
+import { Loader } from "../components/Loader";
+import { Message } from "../components/Message";
 import { Raiting } from "../components/Raiting";
-import { IProduct } from "../interfaces/Product";
 
 export const ProductScreen: FC = () => {
  const { id: productId } = useParams();
  //TODO create normal back link
+ //TODO add more info about error in message
  const location = useLocation();
  console.log(location);
- const [product, setProducts] = useState<IProduct | undefined>();
- useEffect(() => {
-  const fetchData = async () => {
-   const { data } = await axios.get(
-    `http://localhost:8000/api/products/${productId}`
-   );
-   setProducts(data);
-  };
-  fetchData();
- }, [productId]);
-
+ const data = useGetProductDetailsQuery(productId);
+ const { data: product, isLoading, isError } = data;
+ console.log(data);
  return (
   <>
    <Link className="btn btn-light my-3" to="/">
     Go Back
    </Link>
-   {product && (
+   {isLoading ? (
+    <Loader />
+   ) : isError ? (
+    <Message variant="danger">Something went wrong</Message>
+   ) : (
     <Row>
      <Col md={5}>
       <Image src={`/src/assets/${product.image}`} alt={product.name} fluid />
