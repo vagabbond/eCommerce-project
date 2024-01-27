@@ -1,13 +1,17 @@
-import { Schema, model } from "mongoose";
+import { Model, Schema, model } from "mongoose";
+import bcrypt from "bcryptjs";
 
-interface IUser {
+export interface IUser {
  name: string;
  email: string;
  password: string;
  isAdmin: Boolean;
 }
-
-const userSchema = new Schema<IUser>(
+export interface IUserMethods {
+ matchPassword(password: string): Boolean;
+}
+export type UserModel = Model<IUser, {}, IUserMethods>;
+const userSchema = new Schema<IUser, UserModel, IUserMethods>(
  {
   name: {
    type: String,
@@ -29,5 +33,17 @@ const userSchema = new Schema<IUser>(
  },
  { timestamps: true }
 );
-
-export const User = model<IUser>("User", userSchema);
+userSchema.method(
+ "matchPassword",
+ async function matchPassword(password: string) {
+  return await bcrypt.compare(password, this.password);
+ }
+);
+userSchema.pre("save", async function (next) {
+ if (!this.isModified("password")) {
+  next();
+ }
+ const salt = await bcrypt.genSalt(10);
+ this.password = await bcrypt.hash(this.password, salt);
+});
+export const User = model<IUser, UserModel>("User", userSchema);

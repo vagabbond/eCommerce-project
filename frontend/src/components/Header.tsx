@@ -1,10 +1,13 @@
 import { FC } from "react";
-import { Nav, Navbar, Container } from "react-bootstrap";
+import { Nav, Navbar, Container, Badge } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
+import { useAppSelector } from "../redux/store";
 import logo from "../assets/logo.png";
 
 export const Header: FC = () => {
+ const { cartItems } = useAppSelector((state) => state.cart);
+ const qtyInCart = cartItems.reduce((acc, item) => acc + item.qty, 0);
  return (
   <header>
    <Navbar bg="dark" variant="dark" expand="md" collapseOnSelect>
@@ -21,7 +24,12 @@ export const Header: FC = () => {
        <LinkContainer to="/cart">
         <Nav.Link>
          <FaShoppingCart />
-         Cart
+         Cart{" "}
+         {qtyInCart > 0 ? (
+          <Badge pill bg="success" style={{ marginLeft: "5px" }}>
+           {qtyInCart}
+          </Badge>
+         ) : null}
         </Nav.Link>
        </LinkContainer>
        <LinkContainer to="/login">
