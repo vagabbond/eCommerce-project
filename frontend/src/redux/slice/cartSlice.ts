@@ -7,7 +7,7 @@ interface IReviews {
  rating: number;
  comment: string;
 }
-interface ICartItem {
+export interface ICartItem {
  _id: string;
  user: string;
  name: string;
@@ -24,18 +24,31 @@ interface ICartItem {
 }
 export interface IInitialState {
  cartItems: ICartItem[];
+ shippingAddress: {
+  address: string;
+  city: string;
+  postalCode: string;
+  country: string;
+ };
+ paymentMethod: string;
  itemsPrice: number;
  shippingPrice: number;
  taxPrice: number;
  totalPrice: number;
 }
-const initialState: IInitialState = {
- cartItems: [],
- itemsPrice: 0,
- shippingPrice: 0,
- taxPrice: 0,
- totalPrice: 0,
-};
+
+const cart = localStorage.getItem("cart");
+const initialState: IInitialState = cart
+ ? JSON.parse(cart)
+ : {
+    cartItems: [],
+    shippingAddress: {},
+    paymentMethod: "Paypal",
+    itemsPrice: 0,
+    shippingPrice: 0,
+    taxPrice: 0,
+    totalPrice: 0,
+   };
 
 const cartSlice = createSlice({
  name: "cart",
@@ -63,8 +76,29 @@ const cartSlice = createSlice({
    calculatePrice(state);
    localStorage.setItem("cart", JSON.stringify(state));
   },
+  saveShippingAddress: (state, action) => {
+   state.shippingAddress = action.payload;
+   calculatePrice(state);
+   localStorage.setItem("cart", JSON.stringify(state));
+  },
+  savePayment: (state, action) => {
+   state.paymentMethod = action.payload;
+   calculatePrice(state);
+   localStorage.setItem("cart", JSON.stringify(state));
+  },
+  clearCartItems: (state) => {
+   state.cartItems = [];
+   calculatePrice(state);
+   localStorage.setItem("cart", JSON.stringify(state));
+  },
  },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const {
+ addToCart,
+ removeFromCart,
+ saveShippingAddress,
+ savePayment,
+ clearCartItems,
+} = cartSlice.actions;
 export default cartSlice.reducer;

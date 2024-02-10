@@ -10,14 +10,15 @@ import {
  getUserById,
  deleteUser,
  updateUser,
-} from "../controllers/user.controler";
+} from "../controllers/user.controller";
 import { protect, admin } from "../middleware/auth.handler";
 
 export const userRouter = Router();
 
-userRouter.route("/").post(registerUser).get(protect, admin, getAllUsers);
+userRouter.route("/").get(protect, admin, getAllUsers);
 userRouter.post("/logout", logoutUser);
 userRouter.post("/login", authUser);
+userRouter.post("/register", registerUser);
 userRouter
  .route("/profile")
  .put(protect, updateUserProfile)

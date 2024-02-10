@@ -1,16 +1,17 @@
 import { Schema, model } from "mongoose";
 
+export interface IOrderItem {
+ name: string;
+ qty: string;
+ image: string;
+ price: string;
+ product: Schema.Types.ObjectId;
+}
 interface IOrder {
  user: Schema.Types.ObjectId;
- orderItems: {
-  name: string;
-  qty: string;
-  image: string;
-  price: string;
-  product: Schema.Types.ObjectId;
- }[];
+ orderItems: IOrderItem[];
  shippingAddress: {
-  adress: string;
+  address: string;
   city: string;
   postalCode: string;
   country: string;
@@ -45,7 +46,7 @@ const orderSchema = new Schema<IOrder>(
    },
   ],
   shippingAddress: {
-   adress: { type: String, require: true },
+   address: { type: String, require: true },
    city: { type: String, require: true },
    postalCode: { type: String, require: true },
    country: { type: String, require: true },

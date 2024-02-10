@@ -12,7 +12,7 @@ interface IUserExtend extends IUser, IUserMethods {
 export const authUser = asyncHandler(async (req: Request, res: Response) => {
  const { email, password } = req.body;
  const user = await User.findOne({ email });
- if (user && (await user.matchPassword(password)) && process.env.JWT_SECRET) {
+ if (user && user.matchPassword(password) && process.env.JWT_SECRET) {
   generateToken(res, user._id);
   return res.status(200).json({
    _id: user._id,
@@ -101,16 +101,51 @@ export const updateUserProfile = asyncHandler(
 );
 
 export const getAllUsers = asyncHandler(async (req: Request, res: Response) => {
- res.send("get all users user");
+ const page = Number(req.query.page) || 1;
+ const pageSize = 3;
+ const count = await User.countDocuments();
+
+ const users = await User.find({})
+  .limit(pageSize)
+  .skip(pageSize * (page - 1));
+ res.status(200).json({ users, page, pages: Math.ceil(count / pageSize) });
 });
+
 export const getUserById = asyncHandler(async (req: Request, res: Response) => {
- res.send("get user by id user");
+ const user = await User.findById(req.params.id);
+ if (user) {
+  return res.status(200).json(user);
+ } else {
+  res.status(404);
+  throw new Error("User not found");
+ }
 });
 
 export const deleteUser = asyncHandler(async (req: Request, res: Response) => {
- res.send("delete users user");
+ const user = await User.findById(req.params.id);
+ if (user) {
+  if (user.isAdmin) {
+   res.status(400);
+   throw new Error("You can't delete admin user");
+  }
+  await User.deleteOne({ _id: user._id });
+  return res.status(200).json({ message: "User removed" });
+ } else {
+  res.status(404);
+  throw new Error("User not found");
+ }
 });
 
 export const updateUser = asyncHandler(async (req: Request, res: Response) => {
- res.send("update user user");
+ const user = await User.findById(req.params.id);
+ if (user) {
+  user.name = req.body.name || user.name;
+  user.email = req.body.email || user.email;
+  user.isAdmin = req.body.isAdmin || user.isAdmin;
+  const updatedUser = await user.save();
+  return res.status(200).json(updatedUser);
+ } else {
+  res.status(404);
+  throw new Error("User not found");
+ }
 });

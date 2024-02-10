@@ -22,6 +22,7 @@ export const protect = asyncHandler(
  async (req: Request, res: Response, next: NextFunction) => {
   let token;
   token = req.cookies.jwt;
+  console.log(req.user);
   if (token && process.env.JWT_SECRET) {
    try {
     const decode = jwt.verify(token, process.env.JWT_SECRET) as JwtPayload;
@@ -41,6 +42,8 @@ export const protect = asyncHandler(
 );
 
 export const admin = (req: Request, res: Response, next: NextFunction) => {
+ //  console.log(req);
+ //  console.log(req.user?.isAdmin);
  if (req.user?.isAdmin) {
   next();
  } else {

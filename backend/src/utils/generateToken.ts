@@ -13,10 +13,15 @@ export const generateToken = (res: Response, userId: any) => {
     expiresIn: "3d",
    }
   );
-  res.cookie("jwt", token, {
-   httpOnly: true,
-   sameSite: "strict",
-   maxAge: 3 * 24 * 60 * 60 * 1000,
-  });
+  console.log(token);
+  res.cookie("jwt", token);
+  console.log(res.cookie);
  }
 };
+
+// , {
+//    httpOnly: true,
+//    secure: true,
+//    sameSite: "strict",
+//    maxAge: 30 * 24 * 60 * 60 * 1000,
+//   }
