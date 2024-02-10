@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
 import { NextFunction, Response, Request } from "express";
 
-import asyncHandler from "./async.handler";
-import { IUser, User, UserModel, IUserMethods } from "../models/user.model";
+import asyncHandler from "./async.handler.js";
+import { IUser, User, UserModel, IUserMethods } from "../models/user.model.js";
 import { ObjectId } from "mongoose";
 
 interface IUserExtend extends IUser, IUserMethods {

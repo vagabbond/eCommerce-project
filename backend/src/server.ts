@@ -5,14 +5,14 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { fileURLToPath } from "url";
 
-import { connect } from "./src/config/db";
-import { errorHandler, notFound } from "./src/middleware/error.handler";
-import { productsRouter } from "./src/routes/product.routes";
-import { userRouter } from "./src/routes/user.routes";
-import { orderRouter } from "./src/routes/order.routes";
-import { uploadRouter } from "./src/routes/upload.routes";
+import { connect } from "./config/db.js";
+import { errorHandler, notFound } from "./middleware/error.handler.js";
+import { productsRouter } from "./routes/product.routes.js";
+import { userRouter } from "./routes/user.routes.js";
+import { orderRouter } from "./routes/order.routes.js";
+import { uploadRouter } from "./routes/upload.routes.js";
 
-const __filename = fileURLToPath(import.meta.url);
+const __filename = fileURLToPath(import.meta?.url);
 const __dirname = path.dirname(__filename);
 
 dotenv.config();
@@ -23,8 +23,8 @@ const corsOptions = {
  credentials: true,
 };
 
-app.use(express.static(path.join(__dirname, "../frontend/dist")));
-app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
+app.use(express.static(path.join(__dirname, "../../frontend/dist")));
+app.use("/uploads", express.static(path.join(__dirname, "../../uploads")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));

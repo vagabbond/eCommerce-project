@@ -1,5 +1,5 @@
-import { Product } from "../models/poducts.model";
-import asyncHandler from "../middleware/async.handler";
+import { Product } from "../models/poducts.model.js";
+import asyncHandler from "../middleware/async.handler.js";
 import { Request, Response } from "express";
 
 export const getAllProducts = asyncHandler(

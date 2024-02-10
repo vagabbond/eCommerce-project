@@ -1,7 +1,7 @@
 import path from "path";
 import { Router } from "express";
 import multer, { FileFilterCallback } from "multer";
-import { protect, admin } from "../middleware/auth.handler";
+import { protect, admin } from "../middleware/auth.handler.js";
 
 export const uploadRouter = Router();
 

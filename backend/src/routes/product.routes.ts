@@ -7,8 +7,8 @@ import {
  deleteProduct,
  createProductReview,
  getTopProducts,
-} from "../controllers/product.controller";
-import { admin, protect } from "../middleware/auth.handler";
+} from "../controllers/product.controller.js";
+import { admin, protect } from "../middleware/auth.handler.js";
 
 export const productsRouter = Router();
 

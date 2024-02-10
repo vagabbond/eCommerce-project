@@ -1,8 +1,8 @@
 import e, { Request, Response } from "express";
 
-import { generateToken } from "../utils/generateToken";
-import { IUser, User, IUserMethods } from "../models/user.model";
-import asyncHandler from "../middleware/async.handler";
+import { generateToken } from "../utils/generateToken.js";
+import { IUser, User, IUserMethods } from "../models/user.model.js";
+import asyncHandler from "../middleware/async.handler.js";
 import { ObjectId } from "mongoose";
 
 interface IUserExtend extends IUser, IUserMethods {

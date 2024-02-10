@@ -7,8 +7,8 @@ import {
  updateOrderToPaid,
  updateOrderToDelivered,
  getAllOrders,
-} from "../controllers/order.controller";
-import { protect, admin } from "../middleware/auth.handler";
+} from "../controllers/order.controller.js";
+import { protect, admin } from "../middleware/auth.handler.js";
 
 export const orderRouter = Router();
 

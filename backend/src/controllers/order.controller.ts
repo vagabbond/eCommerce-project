@@ -1,7 +1,6 @@
-import { Order } from "../models/orders.molel";
-import asyncHandler from "../middleware/async.handler";
+import { Order } from "../models/orders.molel.js";
+import asyncHandler from "../middleware/async.handler.js";
 import { Request, Response } from "express";
-import { orderRouter } from "../routes/order.routes";
 
 interface IReviews {
  user: string;

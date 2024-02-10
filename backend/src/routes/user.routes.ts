@@ -10,8 +10,8 @@ import {
  getUserById,
  deleteUser,
  updateUser,
-} from "../controllers/user.controller";
-import { protect, admin } from "../middleware/auth.handler";
+} from "../controllers/user.controller.js";
+import { protect, admin } from "../middleware/auth.handler.js";
 
 export const userRouter = Router();
 
