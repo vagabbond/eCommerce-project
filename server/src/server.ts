@@ -14,7 +14,7 @@ import { uploadRouter } from "./routes/upload.routes.js";
 
 const __filename = fileURLToPath(import.meta?.url);
 const __dirname = path.dirname(__filename);
-
+const NODE_ENV = process.env.NODE_ENV || "production";
 dotenv.config();
 const PORT = process.env.PORT || 5000;
 console.log(process.env);
@@ -41,7 +41,7 @@ app.use("/api/users", userRouter);
 app.use(notFound);
 app.use(errorHandler);
 
-if (process.env.NODE_ENV === "production") {
+if (NODE_ENV === "production") {
  console.log("Production mode");
  app.get("*", (req, res) =>
   res.sendFile(path.resolve(__dirname, "../client/dist/index.html"))
