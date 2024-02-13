@@ -7,7 +7,7 @@
   "client:dev": "npm run dev --prefix client",
   "server:dev": "npm run dev --prefix server",
   "dev": "npm-run-all --parallel client:dev server:dev",
-  "start": "node server/dist/server.js",
+  "start": "cd server && npm start",
   "build": "npm run build --prefix client && npm run build --prefix server",
   "install": "cd client && npm install && cd ../server && npm install"
  },
