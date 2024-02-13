@@ -17,13 +17,14 @@ const __dirname = path.dirname(__filename);
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
+console.log(process.env);
 const app: Express = express();
 const corsOptions = {
  origin: true,
  credentials: true,
 };
 
-app.use(express.static(path.join(__dirname, "../../frontend/dist")));
+app.use(express.static(path.join(__dirname, "../../client/dist")));
 app.use("/uploads", express.static(path.join(__dirname, "../../uploads")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -43,7 +44,7 @@ app.use(errorHandler);
 if (process.env.NODE_ENV === "production") {
  console.log("Production mode");
  app.get("*", (req, res) =>
-  res.sendFile(path.resolve(__dirname, "../frontend/dist/index.html"))
+  res.sendFile(path.resolve(__dirname, "../client/dist/index.html"))
  );
 } else {
  app.get("/", (req: Request, res: Response) => {
