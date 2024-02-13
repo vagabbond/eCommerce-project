@@ -17,19 +17,18 @@ const __dirname = path.dirname(__filename);
 const NODE_ENV = process.env.NODE_ENV || "production";
 dotenv.config();
 const PORT = process.env.PORT || 5000;
-console.log(process.env);
 const app: Express = express();
 const corsOptions = {
  origin: true,
  credentials: true,
 };
 
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "../../client/dist")));
 app.use("/uploads", express.static(path.join(__dirname, "../../uploads")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
-app.use(cookieParser());
 
 app.get("/api/config/paypal", (req: Request, res: Response) =>
  res.send({ clientId: process.env.PAYPAL_CLIENT_ID })

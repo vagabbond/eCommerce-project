@@ -22,7 +22,6 @@ export const protect = asyncHandler(
  async (req: Request, res: Response, next: NextFunction) => {
   let token;
   token = req.cookies.jwt;
-  console.log(req.user);
   if (token && process.env.JWT_SECRET) {
    try {
     const decode = jwt.verify(token, process.env.JWT_SECRET) as JwtPayload;
