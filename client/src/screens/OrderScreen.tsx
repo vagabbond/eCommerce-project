@@ -177,7 +177,7 @@ export const OrderScreen: FC = () => {
           <Row>
            <Col md={1}>
             <Image
-             src={`/src/assets${item.image}`}
+             src={`${item.image}`}
              fluid
              rounded
              alt={item.name}

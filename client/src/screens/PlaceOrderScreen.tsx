@@ -83,12 +83,7 @@ export const PlaceOrderScreen: FC = () => {
           <ListGroup.Item key={item._id}>
            <Row>
             <Col md={1}>
-             <Image
-              src={`/src/assets${item.image}`}
-              fluid
-              rounded
-              alt={item.name}
-             />
+             <Image src={`${item.image}`} fluid rounded alt={item.name} />
             </Col>
             <Col>
              <Link to={`/product/${item._id}`}>{item.name}</Link>

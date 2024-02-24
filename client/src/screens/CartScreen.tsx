@@ -45,7 +45,7 @@ export const CartScreen: FC = () => {
         <Row>
          <Col md={2}>
           <Image
-           src={`/src/assets${item.image}`}
+           src={`${item.image}`}
            alt={item.name}
            fluid
            rounded
