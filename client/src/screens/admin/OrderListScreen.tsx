@@ -14,9 +14,6 @@ export const OrderListScreen: FC = () => {
  const { pageNumber } = useParams<{ pageNumber: string }>();
  const { data, isLoading, error } = useGetAllOrdersQuery({ pageNumber });
  const typedError = error as IError;
-
- console.log(pageNumber);
- console.log(data);
  return (
   <>
    <h2>Orders</h2>

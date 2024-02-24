@@ -41,8 +41,6 @@ export const protect = asyncHandler(
 );
 
 export const admin = (req: Request, res: Response, next: NextFunction) => {
- //  console.log(req);
- //  console.log(req.user?.isAdmin);
  if (req.user?.isAdmin) {
   next();
  } else {

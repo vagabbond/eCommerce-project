@@ -37,13 +37,10 @@ app.use("/api/uploads", uploadRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/users", userRouter);
-app.use(notFound);
-app.use(errorHandler);
-
 if (NODE_ENV === "production") {
  console.log("Production mode");
  app.get("*", (req, res) =>
-  res.sendFile(path.resolve(__dirname, "../client/dist/index.html"))
+  res.sendFile(path.resolve(__dirname, "../../client/dist/index.html"))
  );
 } else {
  app.get("/", (req: Request, res: Response) => {
@@ -51,7 +48,8 @@ if (NODE_ENV === "production") {
   res.send("API is running....");
  });
 }
-
+app.use(notFound);
+app.use(errorHandler);
 app.listen(PORT, async () => {
  await connect();
  console.log(`Server is started on port ${PORT}`);

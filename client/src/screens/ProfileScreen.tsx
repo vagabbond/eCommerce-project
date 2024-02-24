@@ -52,7 +52,6 @@ export const ProfileScreen: FC = () => {
    }
   }
  };
- console.log(orders);
  return (
   <Row>
    <Col md={3}>

@@ -26,6 +26,7 @@ export const ProductListScreen: FC = () => {
   useCreateProductMutation();
 
  const [deleteProduct] = useDeleteProductMutation();
+
  const deleteHandler = async (id: string) => {
   if (id) {
    try {

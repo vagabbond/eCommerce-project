@@ -68,7 +68,6 @@ export const ProductEditScreen: FC = () => {
   }
  };
  const uploadHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
-  console.log(e.target.files);
   const formData = new FormData();
   if (e.target.files) {
    formData.append("image", e.target.files[0]);

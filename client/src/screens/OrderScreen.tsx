@@ -123,6 +123,7 @@ export const OrderScreen: FC = () => {
    toast.error(typedError);
   },
  };
+
  return isLoading ? (
   <Loader />
  ) : typedError ? (
@@ -222,7 +223,7 @@ export const OrderScreen: FC = () => {
          <Col>${order.totalPrice}</Col>
         </Row>
        </ListGroup.Item>
-       {!order.isPaid && order.user === userInfo?._id && (
+       {!order.isPaid && order.user._id === userInfo?._id && (
         <ListGroup.Item>
          {loadingPay && <Loader />}
          {isPending ? (
